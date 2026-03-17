@@ -1,0 +1,29 @@
+library(dplyr)   
+> library(tidyr)     
+> data1 <- data.frame(ID = 1:5,Name = c("Alice", "Bob", "Charlie", "David", "Eve"),
++ Age = c(25, NA, 30, 22, NA),Score1 = c(85, 90, 78, 92, 88),Score2 = c(85, 90, 78, 92, 88 ))
+> data2 <- data.frame(ID = 1:5,Score2 = c(80, 85, NA, 95, 90))
+> long_data <- data1 %>%
++   pivot_longer(cols = starts_with("Score"), names_to = "Subject", values_to = "Score")
+> print("Long format data:")
+> print(long_data)
+
+> wide_data <- long_data %>%  pivot_wider(names_from = Subject, values_from = Score)
+> print("Wide format data:")
+> print(wide_data)
+
+> filtered_data <- data1 %>% filter(Age > 25, Score1 > 80)
+> print("Filtered data:")
+> print(filtered_data)
+
+> merged_data <- data1 %>% left_join(data2, by = "ID")
+> print("Merged data:")
+> print(merged_data)
+
+merged_data$Age[is.na(merged_data$Age)] <- mean(merged_data$Age, na.rm = TRUE)
+> merged_data$Score2[is.na(merged_data$Score2)] <- median(merged_data$Score2, na.rm = TRUE)
+> print("Data after handling missing values:")
+> print(merged_data)
+> cleaned_data <- merged_data %>% drop_na()
+> print("Cleaned Data without NA:")
+> print(cleaned_data)
