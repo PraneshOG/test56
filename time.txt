@@ -1,0 +1,27 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+from statsmodels.tsa.arima.model import ARIMA
+from statsmodels.datasets import get_rdataset
+data = get_rdataset("AirPassengers").data
+data['Month'] = pd.date_range(start='1949-01-01', periods=len(data), freq='MS')
+data.set_index('Month', inplace=True)
+data = data.asfreq('MS')
+plt.figure(figsize=(10,5))
+plt.plot(data['value'], label="AirPassengers")
+plt.title("Monthly Airline Passenger Counts")
+plt.xlabel("Year")
+plt.ylabel("Passengers")
+plt.legend() 
+plt.show()
+model = ARIMA(data['value'], order=(2,1,2))  
+model_fit = model.fit(method_kwargs={"maxiter": 500})
+forecast = model_fit.forecast(steps=12)
+plt.figure(figsize=(10,5))
+plt.plot(data['value'], label="Historical")
+plt.plot(pd.date_range(data.index[-1], periods=12, freq='ME'), forecast, label="Forecast", color="red")
+plt.title("AirPassengers Forecast")
+plt.xlabel("Year")
+plt.ylabel("Passengers")
+plt.legend() 
+plt.show()
+
