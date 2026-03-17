@@ -1,0 +1,8 @@
+> data(mtcars)
+> head(mtcars)
+> model <- lm(mpg ~ wt + hp, data = mtcars)
+> summary(model)
+> plot(model$fitted.values, mtcars$mpg, main = "Actual vs Fitted MPG",xlab = "Fitted MPG", ylab = "Actual MPG",pch = 19)
+> abline(0, 1, col = "blue", lwd = 2)
+
+
