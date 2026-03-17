@@ -1,0 +1,7 @@
+data(mtcars)
+cyl_counts<- table(mtcars$cyl)
+barplot(cyl_counts,main="Car Counts by Cylinder Number", xlab="Number of Cylinder",ylab="Number of Cars", col=c("blue","red","Green"),  border="black")
+pie(cyl_counts,labels=paste(names(cyl_counts),"cylinder"),
+    main="Distribution of cars Models By Cylinders",col = c("blue","green","red"))
+plot(mtcars$wt,mtcars$mpg,main="Scatter Plot of Weight vs MPG", xlab="WEIGHT(1000LBS)",ylab="MILES PER GALLON (MPG)", col="blue",
+     pch=19)
